@@ -4,9 +4,9 @@ class Register {
     /* assumes cash in drawer is in ascending currency value */
     this.cid = [];
     this.cidTotal = 0;
-    for (let row in cid){
-      let currency = cid[row][0];
-      let amount = parseInt(cid[row][1] * 100);
+    for (let row of cid){
+      let currency = row[0];
+      let amount = parseInt(row[1] * 100);
       this.cid.push([currency, amount]);
       this.cidTotal += amount;
     }
@@ -59,8 +59,8 @@ class Register {
       change = this._calculateChange(need);
       if (change.length == 0) status = "INSUFFICIENT_FUNDS";
     }
-    for (let i in change){
-       change[i][1] /= 100;
+    for (let row of change){
+       row[1] /= 100;
     }
     return {'status':status, 'change':change};
   }
@@ -74,4 +74,4 @@ function checkCashRegister(price, cash, cid) {
   return status;
 }
 
-checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
